@@ -1,0 +1,35 @@
+{% extends "base_usg.html" %}
+{% block title %}USG course{% endblock %}
+{% block h4 %}USG course{% endblock %}
+{% block content %}
+
+
+<div class="container">
+
+
+
+
+</div>
+{% endblock %}
+{% block scripts%}
+{{ super() }}
+<script>
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  })
+  var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+    trigger: 'focus'
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    $("#loading").hide();
+  });
+</script>
+<script type="text/javascript">// <![CDATA[
+  function loading() {
+    $("#loading").show();
+  }
+// ]]></script>
+{% endblock %}
