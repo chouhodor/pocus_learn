@@ -1,14 +1,79 @@
-{% extends "base_usg.html" %}
-{% block title %}USG course{% endblock %}
-{% block h4 %}USG course{% endblock %}
+{% extends "base.html" %}
+{% block title %}USG Lectures{% endblock %}
+{% block h4 %}USG Lectures{% endblock %}
 {% block content %}
-
 
 <div class="container">
 
+ {% include 'nav_usg.html' %}
 
+<div class="container" style="border: 1px;border-color: rgb(199, 199, 199);border-style: solid;">
 
+  {% if nav_pocus0 %}
+  <br>
+  <h4>Overview</h4>
 
+  <p>Learn basic ultrasound knowledge and technique that can be apply in emergency department</p>
+
+  <h4>Objectives</h4>
+  <ol>
+    <li>Know basic physics of ultrasound image generation</li>
+    <li>Familiar with different probes of ultrasound</li>
+    <li>Learn different views of ultrasound</li>
+    <li>Learn the techniques of image acquisition</li>
+    <li>Interpret ultrasound image and relate with clinical findings</li>
+  </ol>
+  <br>
+  <br>
+  <br>
+
+  {% else %}
+    {% if video_path %}
+    <br>
+    <br>
+    <div style="width: 100%; height: 360; position: relative;margin: auto;display: block;">
+
+      <iframe src="{{ video_path }}" width="100%" height="360" frameborder="0" scrolling="no" seamless=""></iframe>
+
+      <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
+    
+    </div>
+    <br>
+    <br>
+    <br>
+    {% if user_stage > index %}
+    <br>
+    {% else %}
+    <div class="countdown" id="countdown" style="margin:auto;display:block;"></div>
+    <p style="display: none;">
+        Refresh timer
+        <span id="seconds">900</span> seconds.
+    </p>
+    {% endif %}
+
+    {% endif %}
+
+  {% endif %}
+
+  <div style="display:flex; justify-content:flex-end; width:100%; padding:0;">
+    <a type="button" class="btn btn-primary" href="{{ url_for(previous) }}" style="width: 120px;{% if nav_pocus0 %} display:none;{% endif %}">Previous</a>
+    &nbsp;
+    <form action=/next_stage method="POST">
+      <input type="hidden" value="{{index}}" name="current_index" id="current_index">
+      {% if user_stage > index %}
+      <button type="submit" class="btn btn-primary" name="nextbtn" id="nextbtn" style="width: 120px;{% if nav_pocus5 %} display:none; {% endif %}">Next</button>
+      {% else %}
+      <button type="submit" class="btn btn-primary" name="nextbtn" id="nextbtn" style="width: 120px;{% if nav_pocus5 %} display:none; {% endif %}" disabled>Next</button>
+      {% endif %}
+    </form>
+    {% if nav_pocus5 %}
+    <a type="button" class="btn btn-primary disabled" name="completebtn" id="completebtn" href="{{ url_for('mainframe.complete') }}" style="width: 120px;">Complete</a>
+    {% endif %}
+  </div>
+  <br>
+  <br>
+
+</div>
 </div>
 {% endblock %}
 {% block scripts%}
@@ -23,13 +88,55 @@
   })
 </script>
 <script>
-  $(document).ready(function () {
-    $("#loading").hide();
-  });
-</script>
-<script type="text/javascript">// <![CDATA[
-  function loading() {
-    $("#loading").show();
-  }
-// ]]></script>
+    // Countdown timer for redirecting to another URL after several seconds
+
+    var seconds = 900; // seconds for HTML
+    var foo; // variable for clearInterval() function
+
+    function enable() {
+      $("#nextbtn").prop("disabled", false);
+      $('#completebtn').removeClass('btn btn-primary disabled').addClass('btn btn-primary');
+      $("#countdown").css('visibility', 'hidden');
+
+    }
+
+    function updateSecs() {
+      document.getElementById("seconds").innerHTML = seconds;
+      seconds--;
+      if (seconds == -1) {
+        clearInterval(foo);
+        enable();
+      }
+    }
+
+    function countdownTimer() {
+      foo = setInterval(function () {
+        updateSecs();
+      }, 1000);
+    }
+
+    countdownTimer();
+  </script>
+  <script type="text/javascript">
+    
+    var timer2 = "15:00";
+    var interval = setInterval(function() {
+    
+    
+      var timer = timer2.split(':');
+      //by parsing integer, I avoid all extra string processing
+      var minutes = parseInt(timer[0], 10);
+      var seconds = parseInt(timer[1], 10);
+      --seconds;
+      minutes = (seconds < 0) ? --minutes : minutes;
+      if (minutes < 0) clearInterval(interval);
+      seconds = (seconds < 0) ? 59 : seconds;
+      seconds = (seconds < 10) ? '0' + seconds : seconds;
+      //minutes = (minutes < 10) ?  minutes : minutes;
+      $('.countdown').html('Time left: ' + minutes + ' minutes ' + seconds + ' seconds');
+      timer2 = minutes + ':' + seconds;
+    }, 1000);
+
+
+    </script>
 {% endblock %}

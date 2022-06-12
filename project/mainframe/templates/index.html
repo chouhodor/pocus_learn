@@ -1,11 +1,15 @@
-{% extends "base_index.html" %}
-{% block title %}Welcome{% endblock %}
-{% block h4 %}Welcome{% endblock %}
+{% extends "base.html" %}
+{% block title %}Portal{% endblock %}
+{% block h4 %}Portal{% endblock %}
 {% block content %}
 
 
-<div class="container">
+<div class="container" style="padding: 2rem;">
 
+  <h4>Available Course</h4>
+  <ul>
+    <a href="{{ url_for('mainframe.pocus0')}}">POCUS for Beginner Lectures</a>
+  </ul>
 
 
 

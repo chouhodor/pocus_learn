@@ -1,0 +1,57 @@
+<ul class="nav nav-tabs nav-fill w-100">
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('mainframe.pocus0') }}">Introduction</a>
+    </li>
+    {% if user_stage >= 1 %}
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('mainframe.pocus1') }}">1. Knobology and Artefacts of USG</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link active" href="javascript:">1. Knobology and Artefacts of USG <i class="fas fa-lock"></i></a>
+    </li>
+    {% endif %}
+
+
+    {% if user_stage >= 2 %}
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('mainframe.pocus2') }}">2. Cardiac Ultrasound</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link active" href="javascript:">2. Cardiac Ultrasound <i class="fas fa-lock"></i></a>
+    </li>
+    {% endif %}
+
+
+    {% if user_stage >= 3 %}
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('mainframe.pocus3') }}">3. FAST and eFAST</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link active" href="javascript:">3. FAST and eFAST <i class="fas fa-lock"></i></a>
+    </li>
+    {% endif %}
+
+    {% if user_stage >= 4 %}
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('mainframe.pocus4') }}">4. Lung Ultrasound</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link active" href="javascript:">4. Lung Ultrasound <i class="fas fa-lock"></i></a>
+    </li>
+    {% endif %}
+
+    {% if user_stage >= 5 %}
+    <li class="nav-item">
+      <a class="nav-link active" href="{{ url_for('mainframe.pocus5') }}">5. Aorta, IVC and Lower Limb USG</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link active" href="javascript:">5. Aorta, IVC and Lower Limb USG <i class="fas fa-lock"></i></a>
+    </li>
+    {% endif %}
+
+  </ul>

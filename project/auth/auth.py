@@ -27,7 +27,7 @@ def login_post():
 
   login_user(user, remember=remember)
 
-  return redirect(url_for('scheduler.index')) 
+  return redirect(url_for('mainframe.index')) 
 
 def send_email(user):
   token = user.get_reset_token()
@@ -85,7 +85,7 @@ def signup_post():
   email = request.form.get('email')
   password = request.form.get('password')
   passwordconfirm = request.form.get('passwordconfirm')
-  team = request.form.get('team')
+ 
 
   user = User.query.filter_by(email = email).first() 
 
@@ -98,11 +98,9 @@ def signup_post():
   elif len(password) < 6:
     flash('Password should be at least 6 character')
     return redirect(url_for('auth.signup'))
-  elif team == 'Select team':
-    flash('Please select team!')
-    return redirect(url_for('auth.signup'))
+
   
-  new_user = User(username = username.title(), email = email, password = generate_password_hash(password, method='sha256'), team=team)
+  new_user = User(username = username.title(), email = email, password = generate_password_hash(password, method='sha256'))
 
   db.session.add(new_user)
   db.session.commit()
@@ -113,4 +111,4 @@ def signup_post():
 @login_required
 def logout():
   logout_user()
-  return redirect(url_for('scheduler.index'))  
+  return redirect(url_for('auth.login'))  

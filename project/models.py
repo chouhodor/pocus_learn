@@ -1,3 +1,4 @@
+from email.policy import default
 import os
 import jwt
 from . import db
@@ -10,8 +11,8 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(100), unique=True)
   password = db.Column(db.String(100))
   username = db.Column(db.String(20))
-  stage = db.Column(db.String(20))
-  user_type = db.Column(db.String(20))
+  stage = db.Column(db.Integer, default=0)
+  #user_type = db.Column(db.String(20))
   #bookings = db.relationship('Booking', backref = 'user', lazy='dynamic')
 
   def __repr__(self):
